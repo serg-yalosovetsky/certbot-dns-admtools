@@ -1,44 +1,10 @@
-
 [project]
 name = "certbot-dns-admtools"
-version = "0.3.0"
-description = "adm.tools DNS Authenticator plugin for Certbot"
-authors = [
-    { name = "Serhii Yalosovetskyi", email = "serg.yalosovetskyi@gmail.com" }
-]
-license = { text = "Apache-2.0" }
-readme = "README.rst"
-homepage = "https://github.com/serg-yalosovetsky/certbot-dns-admtools"
-keywords = ["certbot", "dns", "admtools", "authenticator", "plugin"]
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
 dependencies = [
-    "python>=3.8",
-    "aste>=0.29.0",
-    "certbot>=2.11.0",
-    "setuptools",
-    "requests",
-    "mock",
-    "requests-mock",
+    "certbot>=3.0.1",
+    "zope>=5.11.1",
 ]
-
-[tool.poetry]
-name = "certbot-dns-admtools"
-version = "0.3.0"
-description = "adm.tools DNS Authenticator plugin for Certbot"
-authors = ["Serhii Yalosovetskyi ‹serg.yalosovetskyi@gmail.com>"]
-license = "Apache License 2.0"
-readme = "README, rst"
-homepage = "https://github.com/serg-yalosovetsky/certbot-dns-admtools"
-keywords = ["certbot", "dns", "admtools", "authenticator", "plugin"]
-
-[tool.poetry.dependencies]
-python = ">=3.8"
-acme = ">=2.11.0"
-certbot = ">=2.11.0"
-setuptools = "*"
-requests = "*"
-mock = "*"
-requests-mock = "*"
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"

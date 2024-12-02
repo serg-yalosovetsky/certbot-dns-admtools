@@ -1,4 +1,4 @@
-"""DNS Authenticator for ISPConfig."""
+"""DNS Authenticator for AdmTools."""
 import json
 import logging
 import time
@@ -52,28 +52,28 @@ class Authenticator(dns_common.DNSAuthenticator):
         )
 
     def _perform(self, domain, validation_name, validation):
-        self._get_ispconfig_client().add_txt_record(
+        self._get_admtools_client().add_txt_record(
             domain, validation_name, validation, self.ttl
         )
 
     def _cleanup(self, domain, validation_name, validation):
-        self._get_ispconfig_client().del_txt_record(
+        self._get_admtools_client().del_txt_record(
             domain, validation_name, validation, self.ttl
         )
 
-    def _get_ispconfig_client(self):
-        return _ISPConfigClient(
+    def _get_admtools_client(self):
+        return _AdmToolsClient(
             self.credentials.conf("auth_token"),
         )
 
 
-class _ISPConfigClient(object):
+class _AdmToolsClient(object):
     """
     Encapsulates all communication with the adm.tools Remote REST API.
     """
 
     def __init__(self, auth_token):
-        logger.debug("creating ispconfigclient")
+        logger.debug("creating admtoolsclient")
         self.auth_token = auth_token
         self.domain_list_url = "https://adm.tools/action/dns/list/"
         self.dns_list_url = "https://adm.tools/action/dns/records_list/"
@@ -93,7 +93,7 @@ class _ISPConfigClient(object):
         :param str record_name: The record name (typically beginning with '_acme-challenge.').
         :param str record_content: The record content (typically the challenge validation).
         :param int record_ttl: The record TTL (number of seconds that the record may be cached).
-        :raises certbot.errors.PluginError: if an error occurs communicating with the ISPConfig API
+        :raises certbot.errors.PluginError: if an error occurs communicating with the AdmTools API
         """
         if not self.domain_ids or domain not in self.domain_ids:
             self._get_domains(domain=domain)
@@ -112,7 +112,7 @@ class _ISPConfigClient(object):
         :param str record_name: The record name (typically beginning with '_acme-challenge.').
         :param str record_content: The record content (typically the challenge validation).
         :param int record_ttl: The record TTL (number of seconds that the record may be cached).
-        :raises certbot.errors.PluginError: if an error occurs communicating with the ISPConfig API
+        :raises certbot.errors.PluginError: if an error occurs communicating with the AdmTools API
         """
         if not self.domain_ids or domain not in self.domain_ids:
             self._get_domains(domain=domain)

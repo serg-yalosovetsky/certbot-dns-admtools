@@ -1,12 +1,12 @@
-certbot-dns-ispconfig
+certbot-dns-admtools
 =====================
 
-ISPConfig_ DNS Authenticator plugin for Certbot
+adm.tools DNS Authenticator plugin for Certbot
 
 This plugin automates the process of completing a ``dns-01`` challenge by
-creating, and subsequently removing, TXT records using the ISPConfig Remote API.
+creating, and subsequently removing, TXT records using the adm.tools Remote API.
 
-Configuration of ISPConfig
+Configuration of adm.tools
 ---------------------------
 
 In the `System -> Remote Users` you have to have a user, with the following rights
@@ -16,7 +16,7 @@ In the `System -> Remote Users` you have to have a user, with the following righ
 - DNS txt functions
 
 
-.. _ISPConfig: https://www.ispconfig.org/
+.. _adm.tools: https://adm.tools/
 .. _certbot: https://certbot.eff.org/
 
 Installation
@@ -30,7 +30,7 @@ Installation
 Named Arguments
 ---------------
 
-To start using DNS authentication for ispconfig, pass the following arguments on
+To start using DNS authentication for adm.tools, pass the following arguments on
 certbot's command line:
 
 ============================================================= ==============================================
@@ -39,12 +39,12 @@ certbot's command line:
 ``--certbot-dns-admtools:dns-admtools-credentials``         adm.tools Remote User credentials
                                                               INI file. (Required)
 
-``--certbot-dns-ispconfig:dns-ispconfig-propagation-seconds`` | waiting time for DNS to propagate before asking
+``--certbot-dns-admtools:dns-admtools-propagation-seconds`` | waiting time for DNS to propagate before asking
                                                               | the ACME server to verify the DNS record.
                                                               | (Default: 120, Recommended: >= 600)
 ============================================================= ==============================================
 
-(Note that the verbose and seemingly redundant ``certbot-dns-ispconfig:`` prefix
+(Note that the verbose and seemingly redundant ``certbot-dns-admtools:`` prefix
 is currently imposed by certbot for external plugins.)
 
 
@@ -63,7 +63,7 @@ records the path to this file for use during renewal, but does not store the
 file's contents.
 
 **CAUTION:** You should protect these API credentials as you would the
-password to your ispconfig account. Users who can read this file can use these
+password to your adm.tools account. Users who can read this file can use these
 credentials to issue arbitrary API calls on your behalf. Users who can cause
 Certbot to run using these credentials can complete a ``dns-01`` challenge to
 acquire new certificates or revoke existing certificates for associated
