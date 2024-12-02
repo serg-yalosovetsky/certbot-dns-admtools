@@ -13,8 +13,7 @@ from certbot.plugins.dns_test_common import DOMAIN
 from certbot.tests import util as test_util
 
 FAKE_USER = "remoteuser"
-FAKE_PW = "password"
-FAKE_ENDPOINT = "mock://endpoint"
+FAKE_AUTH_TOKEN = "auth_token"
 
 
 class AuthenticatorTest(
@@ -23,28 +22,26 @@ class AuthenticatorTest(
     def setUp(self):
         super(AuthenticatorTest, self).setUp()
 
-        from certbot_dns_ispconfig.dns_ispconfig import Authenticator
+        from certbot_dns_ispconfig.dns_adm_tools import Authenticator
 
         path = os.path.join(self.tempdir, "file.ini")
         dns_test_common.write(
             {
-                "ispconfig_username": FAKE_USER,
-                "ispconfig_password": FAKE_PW,
-                "ispconfig_endpoint": FAKE_ENDPOINT,
+                "admtools_auth_token": FAKE_AUTH_TOKEN,
             },
             path,
         )
 
         super(AuthenticatorTest, self).setUp()
         self.config = mock.MagicMock(
-            ispconfig_credentials=path, ispconfig_propagation_seconds=0
+            admtools_credentials=path, admtools_propagation_seconds=0
         )  # don't wait during tests
 
-        self.auth = Authenticator(self.config, "ispconfig")
+        self.auth = Authenticator(self.config, "admtools")
 
         self.mock_client = mock.MagicMock()
         # _get_ispconfig_client | pylint: disable=protected-access
-        self.auth._get_ispconfig_client = mock.MagicMock(return_value=self.mock_client)
+        self.auth._get_admtools_client = mock.MagicMock(return_value=self.mock_client)
 
     def test_perform(self):
         self.auth.perform([self.achall])
@@ -75,11 +72,11 @@ class ISPConfigClientTest(unittest.TestCase):
     record_ttl = 42
 
     def setUp(self):
-        from certbot_dns_ispconfig.dns_ispconfig import _ISPConfigClient
+        from certbot_dns_ispconfig.dns_adm_tools import _ISPConfigClient
 
         self.adapter = requests_mock.Adapter()
 
-        self.client = _ISPConfigClient(FAKE_ENDPOINT, FAKE_USER, FAKE_PW)
+        self.client = _ISPConfigClient(FAKE_AUTH_TOKEN)
         self.client.session.mount("mock", self.adapter)
 
     def _register_response(
@@ -97,15 +94,14 @@ class ISPConfigClientTest(unittest.TestCase):
 
             return (
                 (
-                    ("username" in data and data["username"] == FAKE_USER)
-                    and ("username" in data and data["password"] == FAKE_PW)
+                    ("auth_token" in data and data["auth_token"] == FAKE_AUTH_TOKEN)
                 )
                 or data["session_id"] == "FAKE_SESSION"
             ) and add_result
 
         self.adapter.register_uri(
             requests_mock.ANY,
-            "{0}?{1}".format(FAKE_ENDPOINT, ep_id),
+            "mock://endpoint?{0}".format(ep_id),
             text=json.dumps(resp),
             additional_matcher=add_matcher,
             **kwargs

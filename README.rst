@@ -24,7 +24,7 @@ Installation
 
 ::
 
-    pip install certbot-dns-ispconfig
+    pip install certbot-dns-admtools
 
 
 Named Arguments
@@ -34,9 +34,9 @@ To start using DNS authentication for ispconfig, pass the following arguments on
 certbot's command line:
 
 ============================================================= ==============================================
-``--authenticator certbot-dns-ispconfig:dns-ispconfig``          select the authenticator plugin (Required)
+``--authenticator certbot-dns-admtools:dns-admtools``          select the authenticator plugin (Required)
 
-``--certbot-dns-ispconfig:dns-ispconfig-credentials``         ispconfig Remote User credentials
+``--certbot-dns-admtools:dns-admtools-credentials``         adm.tools Remote User credentials
                                                               INI file. (Required)
 
 ``--certbot-dns-ispconfig:dns-ispconfig-propagation-seconds`` | waiting time for DNS to propagate before asking
@@ -55,12 +55,10 @@ An example ``credentials.ini`` file:
 
 .. code-block:: ini
 
-   certbot_dns_ispconfig:dns_ispconfig_username = myremoteuser
-   certbot_dns_ispconfig:dns_ispconfig_password = verysecureremoteuserpassword
-   certbot_dns_ispconfig:dns_ispconfig_endpoint = https://you.ipsconfig.host:8080/remote/json.php
+   certbot_dns_admtools:dns_admtools_auth_token = myremoteuser_auth_token
 
 The path to this file can be provided interactively or using the
-``--certbot-dns-ispconfig:dns-ispconfig-credentials`` command-line argument. Certbot
+``--certbot-dns-admtools:dns-admtools-credentials`` command-line argument. Certbot
 records the path to this file for use during renewal, but does not store the
 file's contents.
 
@@ -88,9 +86,9 @@ To acquire a single certificate for both ``example.com`` and
 .. code-block:: bash
 
    certbot certonly \
-     --authenticator certbot-dns-ispconfig:dns-ispconfig \
-     --certbot-dns-ispconfig:dns-ispconfig-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
-     --certbot-dns-ispconfig:dns-ispconfig-propagation-seconds 900 \
+     --authenticator certbot-dns-admtools:dns-admtools \
+     --certbot-dns-admtools:dns-admtools-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
+     --certbot-dns-admtools:dns-admtools-propagation-seconds 900 \
      --server https://acme-v02.api.letsencrypt.org/directory \
      --agree-tos \
      --rsa-key-size 4096 \
@@ -101,17 +99,17 @@ To acquire a single certificate for both ``example.com`` and
 Docker
 ------
 
-In order to create a docker container with a certbot-dns-ispconfig installation,
+In order to create a docker container with a certbot-dns-admtools installation,
 create an empty directory with the following ``Dockerfile``:
 
 .. code-block:: docker
 
     FROM certbot/certbot
-    RUN pip install certbot-dns-ispconfig
+    RUN pip install certbot-dns-admtools
 
 Proceed to build the image::
 
-    docker build -t certbot/dns-ispconfig .
+    docker build -t certbot/dns-admtools .
 
 Once that's finished, the application can be run as follows::
 
@@ -119,10 +117,10 @@ Once that's finished, the application can be run as follows::
        -v /var/lib/letsencrypt:/var/lib/letsencrypt \
        -v /etc/letsencrypt:/etc/letsencrypt \
        --cap-drop=all \
-       certbot/dns-ispconfig certonly \
-       --authenticator certbot-dns-ispconfig:dns-ispconfig \
-       --certbot-dns-ispconfig:dns-ispconfig-propagation-seconds 900 \
-       --certbot-dns-ispconfig:dns-ispconfig-credentials \
+       certbot/dns-admtools certonly \
+       --authenticator certbot-dns-admtools:dns-admtools \
+       --certbot-dns-admtools:dns-admtools-propagation-seconds 900 \
+       --certbot-dns-admtools:dns-admtools-credentials \
            /etc/letsencrypt/.secrets/domain.tld.ini \
        --no-self-upgrade \
        --keep-until-expiring --non-interactive --expand \

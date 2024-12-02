@@ -1,15 +1,15 @@
 
 [project]
-name = "certbot-dns-ispconfig"
+name = "certbot-dns-admtools"
 version = "0.3.0"
-description = "ispconfig DNS Authenticator plugin for Certbot"
+description = "adm.tools DNS Authenticator plugin for Certbot"
 authors = [
-    { name = "Matthias Bilger", email = "matthias@bilger.info" }
+    { name = "Serhii Yalosovetskyi", email = "serg.yalosovetskyi@gmail.com" }
 ]
 license = { text = "Apache-2.0" }
 readme = "README.rst"
-homepage = "https://github.com/m42e/certbot-dns-ispconfig"
-keywords = ["certbot", "dns", "ispconfig", "authenticator", "plugin"]
+homepage = "https://github.com/serg-yalosovetsky/certbot-dns-admtools"
+keywords = ["certbot", "dns", "admtools", "authenticator", "plugin"]
 dependencies = [
     "python>=3.8",
     "aste>=0.29.0",
@@ -17,18 +17,18 @@ dependencies = [
     "setuptools",
     "requests",
     "mock",
-    "requests-mock"
+    "requests-mock",
 ]
 
 [tool.poetry]
-name = "certbot-dns-ispconfig"
+name = "certbot-dns-admtools"
 version = "0.3.0"
-description = "ispconfig DNS Authenticator plugin for Certbot"
-authors = ["Matthias Bilger ‹matthias@bilger.info>"]
+description = "adm.tools DNS Authenticator plugin for Certbot"
+authors = ["Serhii Yalosovetskyi ‹serg.yalosovetskyi@gmail.com>"]
 license = "Apache License 2.0"
 readme = "README, rst"
-homepage = "https://github.com/m42e/certbot-dns-ispconfig"
-keywords = ["certbot", "dns", "ispconfig", "authenticator", "plugin"]
+homepage = "https://github.com/serg-yalosovetsky/certbot-dns-admtools"
+keywords = ["certbot", "dns", "admtools", "authenticator", "plugin"]
 
 [tool.poetry.dependencies]
 python = ">=3.8"
