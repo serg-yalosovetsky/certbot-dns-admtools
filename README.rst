@@ -51,7 +51,7 @@ is currently imposed by certbot for external plugins.)
 Credentials
 -----------
 
-An example ``credentials.ini`` file:
+An example ``adm_tools.ini`` file:
 
 .. code-block:: ini
 
@@ -81,18 +81,19 @@ Examples
 --------
 
 To acquire a single certificate for both ``example.com`` and
-``*.example.com``, waiting 900 seconds for DNS propagation:
+``*.example.com``, waiting 30 seconds for DNS propagation:
 
 .. code-block:: bash
 
    certbot certonly \
-     --authenticator certbot-dns-admtools:dns-admtools \
-     --certbot-dns-admtools:dns-admtools-credentials /etc/letsencrypt/.secrets/domain.tld.ini \
-     --certbot-dns-admtools:dns-admtools-propagation-seconds 900 \
+     --authenticator dns-admtools \
+     --preferred-challenges dns \
+     --dns-admtools-credentials adm_tools.ini \
+     --dns-admtools-propagation-seconds 30 \
      --server https://acme-v02.api.letsencrypt.org/directory \
      --agree-tos \
      --rsa-key-size 4096 \
-     -d 'example.com' \
+     --email "email@example.com" \
      -d '*.example.com'
 
 
