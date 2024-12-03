@@ -55,7 +55,7 @@ An example ``credentials.ini`` file:
 
 .. code-block:: ini
 
-   certbot_dns_admtools:dns_admtools_auth_token = myremoteuser_auth_token
+   auth_token = myremoteuser_auth_token
 
 The path to this file can be provided interactively or using the
 ``--certbot-dns-admtools:dns-admtools-credentials`` command-line argument. Certbot
