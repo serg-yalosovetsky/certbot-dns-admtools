@@ -1,0 +1,14 @@
+LICENSE.txt
+README.rst
+pyproject.toml
+setup.cfg
+setup.py
+certbot_dns_admtools.egg-info/PKG-INFO
+certbot_dns_admtools.egg-info/SOURCES.txt
+certbot_dns_admtools.egg-info/dependency_links.txt
+certbot_dns_admtools.egg-info/entry_points.txt
+certbot_dns_admtools.egg-info/requires.txt
+certbot_dns_admtools.egg-info/top_level.txt
+certbot_dns_ispconfig/__init__.py
+certbot_dns_ispconfig/dns_adm_tools.py
+certbot_dns_ispconfig/dns_adm_tools_test.py
